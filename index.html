@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+
+</head>
+<body>
+    <div class="main" ng-app="myList" ng-controller="myCtrl">
+        <h1>To Do List App By Tulsi Thakur</h1>
+        <div class="search">
+            <input type="text" placeholder="Add Todo" ng-model="addme">
+            <span ng-click="additem()"><i class="fas fa-plus" ></i> </span>
+        </div>
+        <ul>
+            <li ng-repeat="x in products">{{x}}<i ng-click="removeitem($index)" class="fas fa-trash-alt"></i>
+            </li>
+        </ul>
+        <p>{{errortext}}</p>
+
+    </div>
+
+    <script type="text/javascript">
+        var app = angular.module("myList", []);
+        app.controller("myCtrl", function($scope){
+            $scope.products = ["Milk", "Bread", "Eggs"];
+            $scope.additem = function(){
+                $scope.errortext = "";
+                if(!$scope.addme){return ;}
+                if($scope.products.indexOf($scope.addme) == -1){
+                    $scope.products.push($scope.addme);
+                }
+
+                else{
+                    $scope.errortext = "This item is already present in the list";
+                }
+
+            }
+
+            $scope.removeitem = function(x){
+                $scope.products.splice(x,1);
+                
+            }
+        });
+    </script>
+</body>
+</html>
